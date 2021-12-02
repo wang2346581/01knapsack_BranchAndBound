@@ -75,7 +75,7 @@ int getUpperBound(int idx, int profit, int weight)
         }
         else
         {
-            upperBound+= (capacity-totWeight) * arr[j].value / arr[j].weight; // 先乘再除, 所以int截斷也沒差
+            upperBound+= (capacity-totWeight) * (double) arr[j].value / arr[j].weight; // 先乘再除, 所以int截斷也沒差
             break;
         }
         ++j;        
@@ -163,10 +163,9 @@ int main()
     //    fileNames.push_back("test\\test" + to_string(i) + ".input");
     for(int i = 1; i <= 10; ++i)
         fileNames.push_back("data\\" + to_string(i) + ".in");
-    
-    for(int i = 0; i < 15; ++i)
+
+    for(int i = 0; i < 10; ++i)
     {
-        // clear data
         w.clear(); 
         v.clear(); 
         arr.clear();

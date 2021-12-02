@@ -75,7 +75,7 @@ int getUpperBound(int idx, int profit, int weight)
         }
         else
         {
-            upperBound+= (capacity-totWeight) * arr[j].value / arr[j].weight; // 先乘再除, 所以int截斷也沒差
+            upperBound+= (capacity-totWeight) * (double)arr[j].value / arr[j].weight; // 先乘再除, 但要小心overflow
             break;
         }
         ++j;        
