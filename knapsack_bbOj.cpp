@@ -75,7 +75,7 @@ int getUpperBound(int idx, int profit, int weight)
         }
         else
         {
-            upperBound+= (capacity-totWeight) * (double)arr[j].value / arr[j].weight; // 先乘再除, 但要小心overflow
+            upperBound+= (double)(capacity-totWeight) * arr[j].value / arr[j].weight; // 先乘再除, 但要小心overflow
             break;
         }
         ++j;        
@@ -93,7 +93,6 @@ int knapsack()
     int lowerBound = 0; // 節點共用的 lower bound 
     // 設定初始lowerBound
     int tmpCapacity = capacity;
-    int tmpProfit   = 0;
     for(const Item &item: arr)
     {
         if(tmpCapacity > item.weight)
@@ -102,10 +101,7 @@ int knapsack()
             tmpCapacity -= item.weight;
         }
     }
-    //lowerBound = MAX(adp(w, v, itemSize, capacity, 10), lowerBound);
     //cout << "[Init] lowerBound: " << lowerBound << endl;
-    
-    //return;
     int maxProfit  = 0;  // 最後總價值
     int nodes_generated = 0; // 產出的node個數
     priority_queue<Node, vector<Node>> pQueue;
@@ -164,8 +160,8 @@ int main()
         int weight;
         cin >> value >> weight;
         arr.push_back(Item(value, weight));
-        v.push_back(value);
-        w.push_back(weight);
+        //v.push_back(value);
+        //w.push_back(weight);
     }
     int res = knapsack();
     cout << res << endl;
