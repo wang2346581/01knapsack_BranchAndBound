@@ -234,11 +234,11 @@ int main()
     int value, weight;
     int lowerBound;
     vector<string> fileNames;
-    for(int i = 1; i <= 15; ++i)
-        fileNames.push_back("test\\test" + to_string(i) + ".input");
-    //for(int i = 1; i <= 10; ++i)
-    //    fileNames.push_back("data\\" + to_string(i) + ".in");
-    for(int i = 0; i < 15; ++i)
+    //for(int i = 1; i <= 15; ++i)
+        //fileNames.push_back("test\\test" + to_string(i) + ".input");
+    for(int i = 1; i <= 10; ++i)
+        fileNames.push_back("data\\" + to_string(i) + ".in");
+    for(int i = 0; i < 10; ++i)
     {
         // clear data
         arr.clear();
