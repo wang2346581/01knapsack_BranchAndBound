@@ -97,7 +97,7 @@ int knapsack()
     {
         if(tmpCapacity > item.weight)
         {
-            lowerBound   += item.value;
+            lowerBound  += item.value;
             tmpCapacity -= item.weight;
         }
     }
@@ -158,18 +158,21 @@ int main()
     //for(int i = 1; i <= 15; ++i)
     //    fileNames.push_back("test\\test" + to_string(i) + ".input");
     for(int i = 1; i <= 10; ++i)
-        fileNames.push_back("data\\" + to_string(i) + ".in");
-
+       fileNames.push_back("data\\" + to_string(i) + ".in");
+    //for(int i = 0; i <= 15; ++i)
+    //    fileNames.push_back("jg\\" + to_string(i) + ".in");
     for(int i = 0; i < 10; ++i)
     {
         w.clear(); 
         v.clear(); 
         arr.clear();
-        
+        //if(i == 9 || i == 12 || i == 14 || i == 15)
+        //    continue;
         // read data
         ifstream fin(fileNames[i]);
         ofstream fout;
         fout.open("myoutput\\" + to_string(i+1) + ".out");
+        //fout.open("myoutput\\" + to_string(i) + ".out");
         fin >> capacity >> itemSize;
         
         arr.reserve(itemSize);

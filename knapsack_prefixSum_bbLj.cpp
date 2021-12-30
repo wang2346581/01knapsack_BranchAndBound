@@ -75,7 +75,7 @@ int getUpperBound(int idx, int totWeight, int upperBoundIdx,
         //cout << "idx: " << idx <<  " ubIdx: " << upperBoundIdx <<  ", pV: " << prefixSumV[itemSize - 1] 
         //    << ", prefixSum[idx-1]: " <<  prefixSumV[idx - 1] <<  endl;
         if(idx == 0)
-           return prefixSumV[itemSize - 1];
+            return prefixSumV[itemSize - 1];
         return prefixSumV[itemSize - 1] - prefixSumV[idx - 1];
     }
     int upperBound = 0;
@@ -118,7 +118,7 @@ int knapsack()
         prefixSumV.push_back(v);
     }
     int lowerBound = 0; // 節點共用的 lower bound 
-    bool stopFlag;
+    bool stopFlag = false;
     // 設定初始lowerBound
     int tmpCapacity = capacity;
     for(const Item &item: arr)
@@ -130,7 +130,7 @@ int knapsack()
         }
     }
     //cout << "[Init] lowerBound: " << lowerBound << endl;
-    int nodes_generated = 0; // 產出的node個數
+    //int nodes_generated = 0; // 產出的node個數
     priority_queue<Node, vector<Node>> pQueue;
     Node cur(0, 0, capacity, 0, itemSize);
     cur.upperBound = cur.profit + getUpperBound(cur.level, cur.weight, 
@@ -148,7 +148,7 @@ int knapsack()
     //cout << "upper bound: " << cur.upperBound << endl;
     //cout << "upperBoundIdx: " << cur.upperBoundIdx << endl;
     //return 0;
-    ++nodes_generated;
+    //++nodes_generated;
     pQueue.push(cur);
     // Step3: 開始進行branch and bound 
     while (!pQueue.empty()) {
@@ -190,7 +190,7 @@ int knapsack()
                 }
                 else
                 {
-                    ++nodes_generated;
+                    //++nodes_generated;
                     pQueue.push(left);
                 }
             }
@@ -218,7 +218,7 @@ int knapsack()
             }
             else
             {
-                ++nodes_generated;
+                //++nodes_generated;
                 pQueue.push(right);
             }
         }
@@ -235,7 +235,7 @@ int main()
     int lowerBound;
     vector<string> fileNames;
     //for(int i = 1; i <= 15; ++i)
-        //fileNames.push_back("test\\test" + to_string(i) + ".input");
+    //    fileNames.push_back("test\\test" + to_string(i) + ".input");
     for(int i = 1; i <= 10; ++i)
         fileNames.push_back("data\\" + to_string(i) + ".in");
     for(int i = 0; i < 10; ++i)

@@ -97,7 +97,7 @@ int knapsack()
     {
         if(tmpCapacity > item.weight)
         {
-            lowerBound   += item.value;
+            lowerBound  += item.value;
             tmpCapacity -= item.weight;
         }
     }

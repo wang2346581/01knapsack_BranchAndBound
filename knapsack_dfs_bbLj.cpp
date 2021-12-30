@@ -42,10 +42,9 @@ int getUpperBound(int idx, int totWeight, int upperBoundIdx,
     while(newUpperBoundIdx < itemSize && prefixSumW[newUpperBoundIdx] <= lastWeight)
         ++newUpperBoundIdx; // 找到最適配的新index
     if(newUpperBoundIdx == itemSize)
-    {   
-        //return prefixSumV[itemSize - 1];
+    {
         if(idx == 0)
-           return prefixSumV[itemSize - 1];
+            return prefixSumV[itemSize - 1];
         return prefixSumV[itemSize - 1] - prefixSumV[idx - 1];
     }
     int upperBound = 0;
@@ -81,7 +80,7 @@ void knapsack(int idx, int totWeight, int profit, int upperBoundIdx)
         return;
     }
     int newUpperBoundIdx = itemSize;
-    bool stopFlag; // flag: stop the algorithm
+    bool stopFlag = false; // flag: stop the algorithm
     int tmpUpperBound = profit + 
         getUpperBound(idx, totWeight, upperBoundIdx, newUpperBoundIdx, stopFlag);
         
@@ -116,6 +115,7 @@ int main()
     //    fileNames.push_back("test\\test" + to_string(i) + ".input");
     for(int i = 1; i <= 10; ++i)
         fileNames.push_back("data\\" + to_string(i) + ".in");
+
     for(int i = 0; i < 10; ++i)
     {
         // clear data
@@ -123,8 +123,6 @@ int main()
         prefixSumW.clear(); // weight 的前綴加總, 加速找到 upper bound
         prefixSumV.clear(); 
         lowerBound = 0;
-        
-        // read data
         ifstream fin(fileNames[i]);
         ofstream fout;
         fout.open("myoutput\\" + to_string(i+1) + ".out");
