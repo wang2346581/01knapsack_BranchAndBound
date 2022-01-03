@@ -72,8 +72,6 @@ int getUpperBound(int idx, int totWeight, int upperBoundIdx,
         ++newUpperBoundIdx; // 找到最適配的新index
     if(newUpperBoundIdx == itemSize)
     {
-        //cout << "idx: " << idx <<  " ubIdx: " << upperBoundIdx <<  ", pV: " << prefixSumV[itemSize - 1] 
-        //    << ", prefixSum[idx-1]: " <<  prefixSumV[idx - 1] <<  endl;
         if(idx == 0)
             return prefixSumV[itemSize - 1];
         return prefixSumV[itemSize - 1] - prefixSumV[idx - 1];
@@ -98,8 +96,6 @@ int getUpperBound(int idx, int totWeight, int upperBoundIdx,
         totWeight  -= ratio * arr[newUpperBoundIdx].weight;
         upperBound += ratio * arr[newUpperBoundIdx].value;
     }
-//    if(upperBound > 2000)
- //       cout << "newUpperBoundIdx: " << newUpperBoundIdx << endl;
     return upperBound;
 }
 
@@ -129,25 +125,17 @@ int knapsack()
             tmpCapacity -= item.weight;
         }
     }
-    //cout << "[Init] lowerBound: " << lowerBound << endl;
     //int nodes_generated = 0; // 產出的node個數
     priority_queue<Node, vector<Node>> pQueue;
     Node cur(0, 0, capacity, 0, itemSize);
     cur.upperBound = cur.profit + getUpperBound(cur.level, cur.weight, 
         cur.upperBoundIdx, cur.newUpperBoundIdx, stopFlag);
     cur.upperBoundIdx = cur.newUpperBoundIdx;
-    //cout << " lowerBound: " << lowerBound << " cur.upper: " << cur.upperBound << endl;
-   // cout << "upperBoundIdx: " << cur.upperBoundIdx << endl;
     //return 0;
     if(cur.upperBound <= lowerBound || stopFlag){
         //cout << "uB: " << cur.upperBound << endl;
         return cur.upperBound;
     }
-    //cur.upperBound = getUpperBound(cur.level, cur.weight, 
-    //    curUpperBoundIdx, cur.upperBoundIdx, stopFlag);
-    //cout << "upper bound: " << cur.upperBound << endl;
-    //cout << "upperBoundIdx: " << cur.upperBoundIdx << endl;
-    //return 0;
     //++nodes_generated;
     pQueue.push(cur);
     // Step3: 開始進行branch and bound 
@@ -161,27 +149,15 @@ int knapsack()
             continue;
         }
         // 產生左子樹, 並拿取此level的item
-        Node left = cur;
         if(cur.weight >= arr[cur.level].weight)
         {
-            //cout << "[L]cur.weight: " << cur.weight << ", arr[cur.level].weight: " << arr[cur.level].weight << endl;
+            Node left = cur;
             ++left.level;
             left.weight -= arr[cur.level].weight;
             left.profit += arr[cur.level].value;
-            //cout << "left.weight: " << left.weight << ",  left.profit: " <<  left.profit<< endl;
-            //cout << "[B]cnt: " << cnt << ", left.upperBound : " << left.upperBound 
-            //     << " level: " <<left.level << endl;
             left.upperBound = left.profit + getUpperBound(left.level, left.weight, 
                 left.upperBoundIdx, left.newUpperBoundIdx, stopFlag);
             left.upperBoundIdx = left.newUpperBoundIdx;
-            //lowerBound = MAX(lowerBound, left.profit);
-            //cout << "left.upperBound: " << left.upperBound << ",  left.upperBoundIdx: " <<  left.upperBoundIdx<< endl;
-            if (left.level == itemSize) // 到最後一層
-            {
-                //cout << "[E]lower bound: " << lowerBound << " profit: " << left.profit << endl;
-                lowerBound = MAX(lowerBound, left.profit);
-                continue;
-            }
             if(left.upperBound > lowerBound)
             {
                 if(stopFlag){
@@ -197,19 +173,10 @@ int knapsack()
         }
         // 產生右子樹, 表不拿取此level的item
         Node right = cur;
-        //cout << "right.weight: " << right.weight << ",  right.profit: " <<  right.profit  
-        //     << ",  right.upperBoundIdx: " <<  right.upperBoundIdx << endl;
         ++right.level;
         right.upperBound = right.profit + getUpperBound(right.level, right.weight, 
             right.upperBoundIdx, right.newUpperBoundIdx, stopFlag);
         right.upperBoundIdx = right.newUpperBoundIdx;
-        //cout << "right.upperBound: " << right.upperBound << ",  right.upperBoundIdx: " <<  right.upperBoundIdx<< endl;
-        if (right.level == itemSize) // 到最後一層
-        {
-           // cout << "[E]lower bound: " << lowerBound << " profit: " << right.profit << endl;
-            lowerBound = MAX(lowerBound, right.profit);
-            continue;
-        }
         if(right.upperBound > lowerBound)
         {
             if(stopFlag){
@@ -223,9 +190,6 @@ int knapsack()
             }
         }
     }
-    //cout << maxProfit << endl;
-    //cout << "lowerBound: " << lowerBound << endl;
-    //cout << "nodes_generated: " << nodes_generated << endl;
     return lowerBound;
 }
   

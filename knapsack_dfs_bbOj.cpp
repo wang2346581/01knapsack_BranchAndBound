@@ -74,8 +74,6 @@ void knapsack(int idx, int totWeight, int profit, int upperBoundIdx)
 {
     if(idx == itemSize)
     {
-        //cout << "idx: " << idx << ", profit: " << profit << ", lowerBoud: "
-        //     << lowerBound << endl;
         lowerBound = MAX(lowerBound, profit);
         return;
     }
@@ -83,10 +81,7 @@ void knapsack(int idx, int totWeight, int profit, int upperBoundIdx)
     bool stopFlag = false; // flag: stop the algorithm
     int tmpUpperBound = profit + 
         getUpperBound(idx, totWeight, upperBoundIdx, newUpperBoundIdx, stopFlag);
-        
-    //if(idx == 0)
-    //    cout << "upper bound: " << tmpUpperBound << endl;
-    if(tmpUpperBound <= lowerBound)
+            if(tmpUpperBound <= lowerBound)
         return;
     if(stopFlag)
     {
@@ -95,17 +90,13 @@ void knapsack(int idx, int totWeight, int profit, int upperBoundIdx)
     }
     if (totWeight >= arr[idx].weight)
     {
-        //cout << "[L]capacity - totWeight, " << capacity - totWeight << ", totWeight: " << totWeight + arr[idx].weight << ", profit: "
-        //     << profit + arr[idx].value << endl;
         knapsack(idx+1, totWeight - arr[idx].weight, profit + arr[idx].value, newUpperBoundIdx);
         //++nodes_generated;
     }
-    //cout << "[R]capacity - totWeight, " << capacity - totWeight << ", totWeight: " << totWeight << ", profit: "
-    //    << profit << endl;
     knapsack(idx+1, totWeight, profit, newUpperBoundIdx);
-    //++nodes_generated;
-    
+    //++nodes_generated;   
 }
+
 int main()
 {
     cin >> capacity >> itemSize;
