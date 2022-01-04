@@ -81,7 +81,7 @@ void knapsack(int idx, int totWeight, int profit, int upperBoundIdx)
     bool stopFlag = false; // flag: stop the algorithm
     int tmpUpperBound = profit + 
         getUpperBound(idx, totWeight, upperBoundIdx, newUpperBoundIdx, stopFlag);
-            if(tmpUpperBound <= lowerBound)
+    if(tmpUpperBound <= lowerBound)
         return;
     if(stopFlag)
     {
